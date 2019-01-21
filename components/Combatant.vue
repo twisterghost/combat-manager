@@ -1,6 +1,7 @@
 <template>
   <div :class="classes">
     {{order + 1}}. {{combatant.name}} - HP: {{combatant.health}} / {{combatant.maxHealth}}
+    <span v-for="status in combatant.statuses">{{status.name}} -- {{status.remaining}}</span>
   </div>
 </template>
 
@@ -19,7 +20,7 @@ export default {
       return ["combatant", {
         "combatant--myTurn": this.myTurn
       }];
-    }
+    },
   }
 }
 </script>

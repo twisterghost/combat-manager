@@ -1,12 +1,6 @@
 <template>
   <section class="container">
-    <combatant
-      v-for="(entry, order) in combatants"
-      :turn="turn"
-      :combatant="entry"
-      :order="order"
-      :key="entry.id"
-    />
+    <combat-list />
     <button @click="$store.commit('nextTurn')">Next</button>
     <div>
       <input type="text" v-model="newCombatant.name" @keydown.enter="addCombatant" />
@@ -17,11 +11,11 @@
 
 <script>
 import { mapState } from 'vuex';
-import Combatant from '~/components/Combatant';
+import CombatList from "~/components/CombatList";
 
 export default {
   components: {
-    Combatant,
+    CombatList,
   },
   data: function() {
     return {
