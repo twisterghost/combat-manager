@@ -67,7 +67,13 @@ const createStore = () => {
       },
       addCombatant(state, payload) {
         state.combatants = state.combatants.concat(createCombatant(payload));
-      }
+      },
+      setHealth(state, {idx, value}) {
+        state.combatants[idx].health = value;
+      },
+      setMaxHealth(state, {idx, value}) {
+        state.combatants[idx].maxHealth = value;
+      },
     }
   });
 };
