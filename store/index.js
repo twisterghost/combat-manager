@@ -58,6 +58,15 @@ const createStore = () => {
       ],
     }),
     mutations: {
+      removeCombatant(state, idx) {
+          state.combatants.splice(idx, 1);
+      },
+      removeAllCombatants(state) {
+        state.combatants = [];
+      },
+      addStatus(state, {idx, status}) {
+        state.combatants[idx].statuses.push(createStatus(status.name, status.type, status.remaining));
+      },
       nextTurn(state) {
         state.turn++;
         if (state.turn >= state.combatants.length) {

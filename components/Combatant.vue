@@ -9,23 +9,31 @@
     >
     </health-display>
     <status-list :statuses="combatant.statuses"></status-list>
-    <button>Remove From Combat</button> - <button>Add Status</button>
+    <button @click="remove">Remove From Combat</button> - <button @click="displayStatusForm">Add Status</button>
+    <status-form v-if="showStatusForm" @submit="submitStatusForm"></status-form>
   </div>
 </template>
 
 <script>
 import StatusList from "~/components/StatusList";
 import HealthDisplay from "~/components/HealthDisplay";
+import StatusForm from "~/components/StatusForm";
 
 export default {
   components: {
     StatusList,
     HealthDisplay,
+    StatusForm,
   },
   props: {
     combatant: Object,
     order: Number,
     turn: Number,
+  },
+  data: function() {
+    return {
+      showStatusForm: false,
+    };
   },
   computed: {
     myTurn() {
@@ -49,6 +57,16 @@ export default {
         idx: this.order,
         value
       });
+    },
+    remove() {
+      this.$store.commit('removeCombatant', this.order);
+    },
+    displayStatusForm() {
+      this.showStatusForm = true;
+    },
+    submitStatusForm(status) {
+      this.showStatusForm = false;
+      this.$store.commit('addStatus', {idx: this.order, status});
     },
   }
 }
