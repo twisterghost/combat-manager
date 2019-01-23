@@ -9,7 +9,7 @@
     >
     </health-display>
     <status-list :statuses="combatant.statuses"></status-list>
-    <button @click="remove">Remove From Combat</button> - <button @click="displayStatusForm">Add Status</button>
+    <button @click="remove">Remove From Combat</button> - <button @click="toggleStatusForm">Add Status</button>
     <status-form v-if="showStatusForm" @submit="submitStatusForm"></status-form>
   </div>
 </template>
@@ -61,8 +61,8 @@ export default {
     remove() {
       this.$store.commit('removeCombatant', this.order);
     },
-    displayStatusForm() {
-      this.showStatusForm = true;
+    toggleStatusForm() {
+      this.showStatusForm = !this.showStatusForm;
     },
     submitStatusForm(status) {
       this.showStatusForm = false;
