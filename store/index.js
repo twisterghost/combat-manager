@@ -38,6 +38,7 @@ function tickStatuses(combatant, secondsPerTurn) {
 
 const felicity = createCombatant({
   name: 'Felicity',
+  initiative: 10,
 });
 felicity.statuses.push(createStatus('dying?', 'time', 10));
 
@@ -58,15 +59,23 @@ const createStore = () => {
       ],
     }),
     mutations: {
+      sortByInitiative(state) {
+        state.combatants.sort((a, b) => b.initiative - a.initiative);
+        state.turn = 0;
+      },
+
       removeCombatant(state, idx) {
           state.combatants.splice(idx, 1);
       },
+
       removeAllCombatants(state) {
         state.combatants = [];
       },
+
       addStatus(state, {idx, status}) {
         state.combatants[idx].statuses.push(createStatus(status.name, status.type, status.remaining));
       },
+
       nextTurn(state) {
         state.turn++;
         if (state.turn >= state.combatants.length) {
@@ -74,14 +83,21 @@ const createStore = () => {
         }
         state.combatants[state.turn] = tickStatuses(state.combatants[state.turn], state.turnTime);
       },
+
       addCombatant(state, payload) {
         state.combatants = state.combatants.concat(createCombatant(payload));
       },
+
       setHealth(state, {idx, value}) {
         state.combatants[idx].health = value;
       },
+
       setMaxHealth(state, {idx, value}) {
         state.combatants[idx].maxHealth = value;
+      },
+
+      updateStats(state, {idx, stats}) {
+        state.combatants[idx] = Object.assign(state.combatants[idx], stats);
       },
     }
   });

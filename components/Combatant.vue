@@ -8,6 +8,11 @@
       @setMaxHealth="setMaxHealth"
     >
     </health-display>
+    <stats-display
+      :ac="combatant.ac"
+      :initiative="combatant.initiative"
+      @update="updateStats"
+    />
     <status-list :statuses="combatant.statuses"></status-list>
     <button @click="remove">Remove From Combat</button> - <button @click="toggleStatusForm">Add Status</button>
     <status-form v-if="showStatusForm" @submit="submitStatusForm"></status-form>
@@ -18,12 +23,14 @@
 import StatusList from "~/components/StatusList";
 import HealthDisplay from "~/components/HealthDisplay";
 import StatusForm from "~/components/StatusForm";
+import StatsDisplay from "~/components/StatsDisplay";
 
 export default {
   components: {
     StatusList,
     HealthDisplay,
     StatusForm,
+    StatsDisplay,
   },
   props: {
     combatant: Object,
@@ -47,27 +54,30 @@ export default {
   },
   methods: {
     setHealth(value) {
-      this.$store.commit('setHealth', {
+      this.$store.commit("setHealth", {
         idx: this.order,
         value
       });
     },
     setMaxHealth(value) {
-      this.$store.commit('setMaxHealth', {
+      this.$store.commit("setMaxHealth", {
         idx: this.order,
         value
       });
     },
     remove() {
-      this.$store.commit('removeCombatant', this.order);
+      this.$store.commit("removeCombatant", this.order);
     },
     toggleStatusForm() {
       this.showStatusForm = !this.showStatusForm;
     },
     submitStatusForm(status) {
       this.showStatusForm = false;
-      this.$store.commit('addStatus', {idx: this.order, status});
+      this.$store.commit("addStatus", {idx: this.order, status});
     },
+    updateStats(stats) {
+      this.$store.commit("updateStats", {idx: this.order, stats});
+    }
   }
 }
 </script>

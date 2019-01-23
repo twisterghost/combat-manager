@@ -2,6 +2,7 @@
   <section class="container">
     <combat-list />
     <button @click="$store.commit('nextTurn')">Next</button>
+    <button @click="$store.commit('sortByInitiative')">Sort By Initiative</button>
     <div>
       <input type="text" v-model="newCombatant.name" @keydown.enter="addCombatant" />
       <button @click="addCombatant">Add</button>
