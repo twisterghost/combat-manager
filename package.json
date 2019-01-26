@@ -2,6 +2,10 @@
   "name": "combat-manager",
   "version": "1.0.0",
   "description": "A generic tabletop combat manager",
+  "engines": {
+    "node": ">=10.15.0",
+    "npm": ">=6.4.1"
+  },
   "author": "Michael Barrett",
   "private": true,
   "scripts": {
