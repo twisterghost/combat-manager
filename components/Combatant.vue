@@ -9,8 +9,7 @@
     >
     </health-display>
     <stats-display
-      :ac="combatant.ac"
-      :initiative="combatant.initiative"
+      :customStats="combatant.customStats"
       @update="updateStats"
     />
     <status-list :statuses="combatant.statuses"></status-list>

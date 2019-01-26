@@ -1,30 +1,32 @@
 <template>
   <div class="statsDisplay">
-    Initiative: <input @change="updateStats" type="number" v-model="internalInitiative" /> -
-    AC: <input @change="updateStats" type="number" v-model="internalAc" />
+    <div v-for="stat in customStatInfo">
+      {{stat.name}}: <input @change="updateStats" type="number" v-model="localCustomStats[stat.slug]" />
+    </div>
   </div>
 </template>
 
 <script>
-  // TODO: This component should take arbitrary stat types to support myriad game rules
-  export default {
-    props: {
-      ac: Number,
-      initiative: Number,
-    },
-    data() {
-      return {
-        internalAc: this.ac,
-        internalInitiative: this.initiative,
-      };
-    },
-    methods: {
-      updateStats() {
-        this.$emit('update', {
-          ac: parseInt(this.internalAc),
-          initiative: parseInt(this.internalInitiative),
-        });
-      },
+import { cloneDeep } from "lodash";
+export default {
+  props: {
+    customStats: Object,
+  },
+  data() {
+    return {
+      localCustomStats: cloneDeep(this.customStats) || {},
     }
+  },
+  computed: {
+    customStatInfo() {
+      return this.$store.state.customStats;
+    }
+  },
+  methods: {
+    updateStats() {
+      // TODO: Format as the right type (number -> parseInt, for example)
+      this.$emit('update', this.localCustomStats);
+    },
   }
+}
 </script>

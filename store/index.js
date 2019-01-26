@@ -9,6 +9,7 @@ function createCombatant(payload) {
     maxHealth: payload.maxHealth || payload.health || 1,
     initiative: payload.initiative || 1,
     statuses: [],
+    customStats: {},
   };
 }
 
@@ -48,16 +49,23 @@ const createStore = () => {
       turn: 0,
       turnTime: 6,
       combatants: [
-        createCombatant({
-          name: 'Igor',
-          health: 10,
-          maxHealth: 10,
-          initiative: 5,
-          id: uuid(),
-        }),
-        felicity,
+      ],
+      customStats: [
+        {
+          name: "AC",
+          type: Number,
+          defaultValue: 10,
+          slug: "ac",
+        },
+        {
+          name: "Inspiration",
+          type: Number,
+          defaultValue: 0,
+          slug: "inspiration",
+        },
       ],
     }),
+
     mutations: {
       sortByInitiative(state) {
         state.combatants.sort((a, b) => b.initiative - a.initiative);
@@ -86,6 +94,7 @@ const createStore = () => {
 
       addCombatant(state, payload) {
         state.combatants = state.combatants.concat(createCombatant(payload));
+        this.commit('formatCombatants');
       },
 
       setHealth(state, {idx, value}) {
@@ -97,9 +106,18 @@ const createStore = () => {
       },
 
       updateStats(state, {idx, stats}) {
-        state.combatants[idx] = Object.assign(state.combatants[idx], stats);
+        state.combatants[idx].customStats = Object.assign(state.combatants[idx].customStats, stats);
       },
-    }
+
+      formatCombatants(state) {
+        state.combatants.forEach(combatant => {
+          state.customStats.forEach(({slug, defaultValue}) => {
+            combatant.customStats[slug] = combatant.customStats[slug] || defaultValue;
+          });
+        });
+      },
+    },
+
   });
 };
 
