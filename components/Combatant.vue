@@ -8,8 +8,16 @@
       @setMaxHealth="setMaxHealth"
     >
     </health-display>
-    <div>
-      Initiative: <input type="number" :value="combatant.initiative" @change="updateInitiative" />
+    <div class="combatant__majorStats">
+      <span class="combatant__majorStat">
+        Initiative
+        <input
+          class="combatant__majorStatInput tc"
+          type="text"
+          :value="combatant.initiative"
+          @change="updateInitiative"
+        />
+      </span>
     </div>
     <stats-display
       :customStats="combatant.customStats"
@@ -89,21 +97,22 @@ export default {
 
 <style>
 .combatant {
-  margin: 2rem;
+  margin: 1rem;
   padding: 1rem;
-  border: 1px solid black;
   border-radius: 5px;
 }
 
 .combatant__name {
   display: inline-block;
-}
-
-.combatant__statuses {
-  display: block;
+  margin: 0;
 }
 
 .combatant--myTurn {
-  background-color: red;
+  background-color: #a7a2a9;
+}
+
+.combatant__majorStatInput {
+  width: 3rem;
+  border-radius: 1rem;
 }
 </style>

@@ -1,0 +1,11 @@
+body {
+  color: #1c1c1c;
+  font-family: "Helvetiva", helvetica, arial, sans-serif;
+}
+
+input {
+  border: 1px solid currentColor;
+  margin: .1rem;
+  background-color: white;
+  padding: .25em;
+}

@@ -1,6 +1,7 @@
 <template>
-  <span>
+  <div class="healthDisplay">
     <input
+      class="healthDisplay__input tr"
       @change="updateHealth"
       @keydown.enter="updateHealth"
       @click="$event.target.select()"
@@ -8,13 +9,14 @@
       :value="currentHealth"
      /> /
     <input
+      class="healthDisplay__input"
       @change="updateMaxHealth"
       @keydown.enter="updateMaxHealth"
       @click="$event.target.select()"
       type="text"
       :value="maxHealth"
     />
-  </span>
+  </div>
 </template>
 
 <script>
@@ -44,4 +46,19 @@ export default {
 </script>
 
 <style>
+
+.healthDisplay {
+  display: inline-block;
+  margin-left: 1rem;
+  background-color: #c60013;
+  color: white;
+  border-radius: 1rem;
+}
+
+.healthDisplay__input {
+  color: inherit;
+  width: 3rem;
+  background-color: transparent;
+  border: none;
+}
 </style>

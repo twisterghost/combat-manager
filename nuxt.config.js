@@ -14,7 +14,7 @@ module.exports = {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
     ]
   },
 
@@ -27,6 +27,8 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    '@/assets/style/tachyons.css',
+    '@/assets/style/global.css',
   ],
 
   /*
@@ -49,7 +51,7 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
-      
+
     }
   }
 }
