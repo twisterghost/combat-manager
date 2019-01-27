@@ -109,6 +109,10 @@ const createStore = () => {
         state.combatants[idx].customStats = Object.assign(state.combatants[idx].customStats, stats);
       },
 
+      updateInitiative(state, {idx, initiative}) {
+        state.combatants[idx].initiative = initiative;
+      },
+
       formatCombatants(state) {
         state.combatants.forEach(combatant => {
           state.customStats.forEach(({slug, defaultValue}) => {

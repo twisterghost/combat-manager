@@ -8,6 +8,9 @@
       @setMaxHealth="setMaxHealth"
     >
     </health-display>
+    <div>
+      Initiative: <input type="number" :value="combatant.initiative" @change="updateInitiative" />
+    </div>
     <stats-display
       :customStats="combatant.customStats"
       @update="updateStats"
@@ -76,7 +79,10 @@ export default {
     },
     updateStats(stats) {
       this.$store.commit("updateStats", {idx: this.order, stats});
-    }
+    },
+    updateInitiative(event) {
+      this.$store.commit("updateInitiative", {idx: this.order, initiative: parseInt(event.target.value)});
+    },
   }
 }
 </script>
