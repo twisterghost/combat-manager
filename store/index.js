@@ -105,8 +105,9 @@ const createStore = () => {
         state.combatants[idx].maxHealth = value;
       },
 
-      updateStats(state, {idx, stats}) {
-        state.combatants[idx].customStats = Object.assign(state.combatants[idx].customStats, stats);
+      updateStat(state, {idx, stat, value}) {
+        const statsObj = state.combatants[idx].customStats;
+        state.combatants[idx].customStats = Object.assign({}, statsObj, {[stat]: value});
       },
 
       updateInitiative(state, {idx, initiative}) {

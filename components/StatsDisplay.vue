@@ -4,24 +4,20 @@
       {{stat.name}}
       <input
         class="statsDisplay__statInput tc"
-        @change="updateStats"
+        @change="updateStat"
         type="text"
-        v-model="localCustomStats[stat.slug]"
+        :value="customStats[stat.slug]"
+        :data-stat="stat.slug"
       />
     </div>
   </div>
 </template>
 
 <script>
-import { cloneDeep } from "lodash";
+import { getModifiedNumber } from "~/util/numberUtil";
 export default {
   props: {
     customStats: Object,
-  },
-  data() {
-    return {
-      localCustomStats: cloneDeep(this.customStats) || {},
-    }
   },
   computed: {
     customStatInfo() {
@@ -29,9 +25,13 @@ export default {
     }
   },
   methods: {
-    updateStats() {
-      // TODO: Format as the right type (number -> parseInt, for example)
-      this.$emit('update', this.localCustomStats);
+    updateStat(event) {
+      const valString = event.target.value;
+      const stat = event.target.dataset.stat;
+      this.$emit('update', {
+        stat,
+        value: getModifiedNumber(valString, this.customStats[stat]),
+      });
     },
   }
 }

@@ -21,7 +21,7 @@
     </div>
     <stats-display
       :customStats="combatant.customStats"
-      @update="updateStats"
+      @update="updateStat"
     />
     <status-list :statuses="combatant.statuses"></status-list>
     <button @click="remove">Remove From Combat</button> - <button @click="toggleStatusForm">Add Status</button>
@@ -34,6 +34,7 @@ import StatusList from "~/components/StatusList";
 import HealthDisplay from "~/components/HealthDisplay";
 import StatusForm from "~/components/StatusForm";
 import StatsDisplay from "~/components/StatsDisplay";
+import { getModifiedNumber } from "~/util/numberUtil";
 
 export default {
   components: {
@@ -85,11 +86,18 @@ export default {
       this.showStatusForm = false;
       this.$store.commit("addStatus", {idx: this.order, status});
     },
-    updateStats(stats) {
-      this.$store.commit("updateStats", {idx: this.order, stats});
+    updateStat(statInfo) {
+      this.$store.commit("updateStat", {
+        idx: this.order,
+        stat: statInfo.stat,
+        value: statInfo.value,
+      });
     },
     updateInitiative(event) {
-      this.$store.commit("updateInitiative", {idx: this.order, initiative: parseInt(event.target.value)});
+      this.$store.commit("updateInitiative", {
+        idx: this.order,
+        initiative: getModifiedNumber(event.target.value, this.combatant.initiative),
+      });
     },
   }
 }

@@ -11,7 +11,6 @@
     <input
       class="healthDisplay__input"
       @change="updateMaxHealth"
-      @keydown.enter="updateMaxHealth"
       @click="$event.target.select()"
       type="text"
       :value="maxHealth"
@@ -21,13 +20,7 @@
 
 <script>
 
-function getModifiedNumber(inputString, current) {
-  if (inputString[0] === '+' || inputString[0] === '-') {
-    return current + parseInt(inputString);
-  }
-
-  return parseInt(inputString);
-}
+import { getModifiedNumber } from "~/util/numberUtil";
 
 export default {
   props: {
